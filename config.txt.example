@@ -1,0 +1,11 @@
+# Set root user password
+PASSWORD="toor"
+
+# Add custom packages
+ADDPKG="nano"
+
+# Set architecture arm64 and armhf
+ARCHITECTURE="armhf"
+
+# Set hostname
+HOST_NAME="debian"
