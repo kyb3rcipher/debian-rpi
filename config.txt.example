@@ -4,8 +4,8 @@ PASSWORD="toor"
 # Add custom packages
 ADDPKG="nano"
 
-# Set architecture arm64 and armhf
-ARCHITECTURE="armhf"
+# Set architecture arm64,armhf or armel
+ARCHITECTURE="arm64"
 
 # Set hostname
 HOST_NAME="debian"

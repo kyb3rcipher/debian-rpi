@@ -5,22 +5,15 @@
 # By: Kyb3r <kyb3rvizsla.com>
 # LICENSE: MIT
 #------------------------------------
+source config.txt
 
-function first-stage(){
-    eatmydata debootstrap --foreign --arch="$ARCHITECTURE" --keyring=/usr/share/keyrings/debian-archive-keyring.gpg --include="$FIRST_STAGE_PKG" buster $ROOTFS
-}
+# First Stage
+eatmydata debootstrap --foreign --arch="$ARCHITECTURE" --keyring=/usr/share/keyrings/debian-archive-keyring.gpg include="eatmydata" buster $ROOTFS
 
-function second-stage(){
-    apt update
-    apt install -y eatmydata
-    chroot $ROOTFS eatmydata /debootstrap/debootstrap --second-stage
+# Second Stage
+apt update
+apt install -y eatmydata
+chroot $ROOTFS eatmydata /debootstrap/debootstrap --second-stage
 
-}
-
-function set-users(){
-    chroot $ROOTFS echo "root:${ROOT_PASSWORD}" | chpasswd
-}
-
-function create-image(){
-
-}
+# Set users
+chroot $ROOTFS echo "root:${ROOT_PASSWORD}" | chpasswd
