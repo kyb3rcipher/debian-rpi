@@ -7,8 +7,11 @@
 #------------------------------------
 source config.txt
 
+# Variables
+ROOTFS="rootfs"
+
 # First Stage
-eatmydata debootstrap --foreign --arch="$ARCHITECTURE" --keyring=/usr/share/keyrings/debian-archive-keyring.gpg include="eatmydata" buster $ROOTFS
+eatmydata debootstrap --foreign --arch="$ARCHITECTURE" --keyring=/usr/share/keyrings/debian-archive-keyring.gpg buster $ROOTFS
 
 # Second Stage
 apt update
