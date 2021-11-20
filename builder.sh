@@ -9,14 +9,14 @@
 source example.conf
 source custom.conf 2> /dev/null
 
-# Create working dirs
+# Preparation
 mkdir $work_dir
 
 # First stage
 debootstrap --foreign --arch="$architecture" --include="ifupdown openresolv net-tools init dbus rsyslog cron eatmydata wget gnupg" $debian_release $rootfs
 
 # Second stage
-cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin
+cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin # copy qemu bin for chroot
 chroot $rootfs /debootstrap/debootstrap --second-stage
 
 # Set users
