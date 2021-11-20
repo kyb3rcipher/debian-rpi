@@ -9,6 +9,9 @@
 source example.conf
 source custom.conf 2> /dev/null
 
+# Create working dirs
+mkdir $work_dir
+
 # First stage
 eatmydata debootstrap --foreign --arch="$architecture" --include="ifupdown openresolv net-tools init dbus rsyslog cron eatmydata wget gnupg" $debian_release $rootfs
 
