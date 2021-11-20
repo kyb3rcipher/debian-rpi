@@ -16,6 +16,7 @@ mkdir $work_dir
 debootstrap --foreign --arch="$architecture" --include="ifupdown openresolv net-tools init dbus rsyslog cron eatmydata wget gnupg" $debian_release $rootfs
 
 # Second stage
+cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin
 chroot $rootfs /debootstrap/debootstrap --second-stage
 
 # Set users
