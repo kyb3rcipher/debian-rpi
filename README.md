@@ -1,9 +1,9 @@
 # Debian Raspberry Builder
 
-Copy **config.txt.example** to config.txt with ```cp config.txt.example config.txt```
 Install dependeces with:
 ```
-./install-depends.sh
+apt update
+apt install -y debootstrap eatmydata
 ```
 
 Note: Execute all with root permisos (you can use sudo).
