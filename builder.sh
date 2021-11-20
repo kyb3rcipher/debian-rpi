@@ -13,10 +13,10 @@ source custom.conf 2> /dev/null
 mkdir $work_dir
 
 # First stage
-eatmydata debootstrap --foreign --arch="$architecture" --include="ifupdown openresolv net-tools init dbus rsyslog cron eatmydata wget gnupg" $debian_release $rootfs
+debootstrap --foreign --arch="$architecture" --include="ifupdown openresolv net-tools init dbus rsyslog cron eatmydata wget gnupg" $debian_release $rootfs
 
 # Second stage
-chroot $rootfs eatmydata /debootstrap/debootstrap --second-stage
+chroot $rootfs /debootstrap/debootstrap --second-stage
 
 # Set users
 chroot $rootfs <<_EOF
