@@ -11,4 +11,8 @@ ROOTFS="rootfs"
 DEBIAN_RELEASE="bullseye"
 
 # First stage
-eatmydata debootstrap --foreign --arch="arm64" $DEBIAN_RELEASE $ROOTFS
+eatmydata debootstrap --foreign --arch="arm64" --include="ifupdown openresolv net-tools init dbus rsyslog cron eatmydata wget gnupg" $DEBIAN_RELEASE $ROOTFS
+
+# Second stage
+chroot $ROOTFS /debootstrap/debootstrap --second-stage
+
