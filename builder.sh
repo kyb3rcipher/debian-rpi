@@ -11,7 +11,8 @@ source custom.conf 2> /dev/null
 
 # Variables
 base_packages="ca-certificates wget curl tzdata locales"
-packages="$base_packages $custom_packages"
+compile_packages="sudo cmake build-essential binutils"
+packages="$base_packages $compile_packages $custom_packages"
 
 # Preparation
 mkdir $work_dir
@@ -72,3 +73,10 @@ EOM
 wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
 chmod +x $rootfs/usr/local/sbin/rpi-update
 SKIP_WARNING=1 SKIP_BACKUP=1 ROOT_PATH=$rootfs BOOT_PATH=$rootfs/boot $rootfs/usr/local/sbin/rpi-update
+
+# Install raspberry userland firmware
+git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
+chroot $rootfs <<_EOF
+cd /tmp/userland
+./buildme --aarch64
+_EOF
