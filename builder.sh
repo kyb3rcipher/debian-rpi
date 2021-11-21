@@ -83,4 +83,3 @@ _EOF
 wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
 chmod +x $rootfs/usr/local/sbin/rpi-update
 chroot $rootfs SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
-_EOF
