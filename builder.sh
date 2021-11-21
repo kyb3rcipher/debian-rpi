@@ -9,6 +9,10 @@
 source example.conf
 source custom.conf 2> /dev/null
 
+# Variables
+base_packages="ca-certificates wget curl"
+packages="$base_packages $custom_packages"
+
 # Preparation
 mkdir $work_dir
 
@@ -40,3 +44,9 @@ cat >$rootfs/etc/hosts <<EOM
 ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
 EOM
+
+# Install packages
+chroot $rootfs <<_EOF
+apt update
+apt install -y $packages
+_EOF
