@@ -97,9 +97,9 @@ SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
 _EOF
 
 # Install raspberry userland firmware
-chroot $rootfs apt install -y curl binutils cmake build-essential
-git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
-chroot $rootfs <<_EOF
-cd /tmp/userland
-./buildme --aarch64
-_EOF
+#chroot $rootfs apt install -y curl binutils cmake build-essential
+#git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
+#chroot $rootfs <<_EOF
+#cd /tmp/userland
+#./buildme --aarch64
+#_EOF
