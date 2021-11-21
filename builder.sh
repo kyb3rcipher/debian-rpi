@@ -65,16 +65,7 @@ chroot $rootfs apt install -y resolvconf
 chroot $rootfs systemctl enable resolvconf
 chroot $rootfs systemctl enable NetworkManager
 rm -rf $rootfs/etc/resolv.conf
-cat >$rootfs/etc/resolv.conf <<EOM
-nameserver $name_server
-
-# Examples:
-# Google
-nameserver 8.8.8.8
-
-# Cloudflare
-#nameserver 1.1.1.1
-EOM
+echo "nameserver $name_server" > $rootfs/etc/resolv.conf
 
 # Setting...
 echo -e "\n$dot$greenColor Starting settings...$endColor"
@@ -89,7 +80,7 @@ ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
 EOM
 rm $rootfs/hostname
- echo "$host_name" > $ROOTFS/etc/hostname
+echo "$host_name" > $ROOTFS/etc/hostname
 
 # Set users
 echo -e "${yellowColor}Setting users$endColor"
