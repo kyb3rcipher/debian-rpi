@@ -10,7 +10,7 @@ source example.conf
 source custom.conf 2> /dev/null
 
 # Variables
-base_packages="ca-certificates wget curl gnupg cron rsyslog"
+base_packages="ca-certificates wget curl wget gnupg cron rsyslog"
 packages="$base_packages $custom_packages"
 # Colors
 endColor="\e[0m\e[0m"
@@ -30,7 +30,7 @@ mkdir $work_dir
 
 # First stage
 echo -e "\n$dot$greenColor Starting first stage...$endColor"
-eatmydata debootstrap --foreign --arch="$architecture" $debian_release $rootfs
+debootstrap --foreign --arch="$architecture" $debian_release $rootfs
 echo "$(date +"DAY: %d MONTH: %b HOUR: %I MINUTE: %M SECOND: %S")" > $work_dir/build-date.txt
 
 # Second stage
@@ -41,9 +41,8 @@ then
 else
     cp /usr/bin/qemu-arm-static $rootfs/usr/bin
 fi
+chroot $rootfs /debootstrap/debootstrap --second-stage
 chroot $rootfs apt update
-chroot $rootfs apt install -y eatmydata
-chroot $rootfs eatmydata /debootstrap/debootstrap --second-stage
 
 # Install packages
 chroot $rootfs <<_EOF
