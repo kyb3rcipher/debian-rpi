@@ -12,7 +12,7 @@ source custom.conf 2> /dev/null
 # Variables
 base_packages="ca-certificates wget curl gnupg cron rsyslog tzdata locales"
 compile_packages="sudo cmake build-essential binutils"
-debootstrap_include_packages="eatmydata gnup"
+debootstrap_include_packages="eatmydata gnupg"
 packages="$base_packages $compile_packages $custom_packages"
 
 # Preparation
