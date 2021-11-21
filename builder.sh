@@ -10,16 +10,17 @@ source example.conf
 source custom.conf 2> /dev/null
 
 # Variables
-base_packages="ca-certificates wget curl tzdata locales"
+base_packages="ca-certificates wget curl gnupg cron init dbus rsyslog tzdata locales"
 compile_packages="sudo cmake build-essential binutils"
+debootstrap_include_packages="eatmydata gnup"
 packages="$base_packages $compile_packages $custom_packages"
 
 # Preparation
-rm -rf $word_dir > /dev/null
+rm -rf $word_dir 2> /dev/null
 mkdir $work_dir
 
 # First stage
-debootstrap --foreign --arch="$architecture" --include="ifupdown openresolv net-tools init dbus rsyslog cron eatmydata wget gnupg" $debian_release $rootfs
+debootstrap --foreign --arch="$architecture" --include="$debootstrap_include_packages" $debian_release $rootfs
 
 # Second stage
 cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin # copy qemu bin for chroot
