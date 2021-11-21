@@ -10,7 +10,7 @@ source example.conf
 source custom.conf 2> /dev/null
 
 # Variables
-base_packages="ca-certificates wget curl wget gnupg cron rsyslog"
+base_packages="ca-certificates binutils wget curl wget gnupg cron rsyslog"
 packages="$base_packages $custom_packages"
 # Colors
 endColor="\e[0m\e[0m"
@@ -63,7 +63,6 @@ EOM
 echo -e "\n${yellowColor}Configuring netorking...$endColor"
 chroot $rootfs apt install -y resolvconf
 chroot $rootfs systemctl enable resolvconf
-chroot $rootfs systemctl enable NetworkManager
 rm -rf $rootfs/etc/resolv.conf
 echo "nameserver $name_server" > $rootfs/etc/resolv.conf
 
@@ -111,7 +110,7 @@ EOM
 
 # Install kernel
 echo -e "\n$dot$greenColor Installing kernel...$endColor"
-chroot $rootfs apt install -y curl
+chroot $rootfs apt install -y curl binutils
 wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
 chmod +x $rootfs/usr/local/sbin/rpi-update
 chroot $rootfs <<_EOF
