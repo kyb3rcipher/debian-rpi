@@ -36,7 +36,12 @@ echo "$(date +"DAY: %d MONTH: %b HOUR: %I MINUTE: %M SECOND: %S")" > $work_dir/b
 
 # Second stage
 echo -e "\n$dot$greenColor Starting second stage...$endColor"
-cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin # copy qemu bin for chroot
+if [ "$architecture" == "arm64" ]
+then
+    cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin
+else
+    cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin
+fi
 chroot $rootfs eatmydata /debootstrap/debootstrap --second-stage
 chroot $rootfs apt update
 

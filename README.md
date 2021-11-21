@@ -7,7 +7,7 @@ Use:
 Install dependeces with:
 ```bash
 apt update
-apt install -y debootstrap qemu qemu-user-static wget
+apt install -y debootstrap eatmydata qemu qemu-user-static wget
 ```
 
 Note: Execute all with root permisos (you can use sudo).
