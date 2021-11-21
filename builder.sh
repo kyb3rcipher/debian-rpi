@@ -85,9 +85,7 @@ ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
 EOM
 rm $rootfs/hostname
-cat >$rootfs/etc/hotname <<EOM
-${host_name}
-EOM
+ echo "$host_name" > $ROOTFS/etc/hostname
 
 # Set users
 echo -e "${yellowColor}Setting users$endColor"
