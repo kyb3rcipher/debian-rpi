@@ -1,10 +1,10 @@
 #!/bin/bash
 
-#---------------------------------
+#--------------------------------------
 # Debian arm raspberry pi builder
 # LICENSE: MIT
 # By: Kyb3r Vizsla <kyb3rvizsla.com>
-#---------------------------------
+#---------------------------------------
 
 source example.conf
 source custom.conf 2> /dev/null
