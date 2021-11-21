@@ -40,7 +40,7 @@ if [ "$architecture" == "arm64" ]
 then
     cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin
 else
-    cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin
+    cp /usr/bin/qemu-arm-static $rootfs/usr/bin
 fi
 chroot $rootfs eatmydata /debootstrap/debootstrap --second-stage
 chroot $rootfs apt update
