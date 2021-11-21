@@ -55,30 +55,32 @@ apt install -y $packages
 _EOF
 
 # Set timezone
-chroot $rootf <<_EOF
+chroot $rootfs <<_EOF
 ln -nfs /usr/share/zoneinfo/$timezone /etc/localtime
 dpkg-reconfigure -fnoninteractive tzdata
 _EOF
 
 # Set locales
-#sed -i "s/^# *\($locale\)/\1/" $rootfs/etc/locale.gen
-#chroot $rootfs locale-gen
-#echo "LANG=$locale" > $rootfs/etc/locale.conf
-#cat <<'EOM' > $rootfs/etc/profile.d/default-lang.sh
-#if [ -z "$LANG" ]; then
-#source /etc/locale.conf
-#export LANG
-#fi
-#EOM
+sed -i "s/^# *\($locale\)/\1/" $rootfs/etc/locale.gen
+chroot $rootfs locale-gen
+echo "LANG=$locale" > $rootfs/etc/locale.conf
+cat <<'EOM' > $rootfs/etc/profile.d/default-lang.sh
+if [ -z "$LANG" ]; then
+source /etc/locale.conf
+export LANG
+fi
+EOM
+
+
+# Install raspberry userland firmware
+git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
+chroot $rootfs <<_EOF
+cd /tmp/userland
+./buildme --aarch64
+_EOF
 
 # Install kernel
-#wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
-#chmod +x $rootfs/usr/local/sbin/rpi-update
-#SKIP_WARNING=1 SKIP_BACKUP=1 ROOT_PATH=$rootfs BOOT_PATH=$rootfs/boot $rootfs/usr/local/sbin/rpi-update
-#
-# Install raspberry userland firmware
-#git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
-#chroot $rootfs <<_EOF
-#cd /tmp/userland
-#./buildme --aarch64
-#_EOF
+wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
+chmod +x $rootfs/usr/local/sbin/rpi-update
+chroot $rootfs SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
+_EOF
