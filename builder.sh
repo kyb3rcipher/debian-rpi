@@ -15,6 +15,7 @@ compile_packages="sudo cmake build-essential binutils"
 packages="$base_packages $compile_packages $custom_packages"
 
 # Preparation
+rm -rf $word_dir > /dev/null
 mkdir $work_dir
 
 # First stage
@@ -59,24 +60,24 @@ dpkg-reconfigure -fnoninteractive tzdata
 _EOF
 
 # Set locales
-sed -i "s/^# *\($locale\)/\1/" $rootfs/etc/locale.gen
-chroot $rootfs locale-gen
-echo "LANG=$locale" > $rootfs/etc/locale.conf
-cat <<'EOM' > $rootfs/etc/profile.d/default-lang.sh
-if [ -z "$LANG" ]; then
-source /etc/locale.conf
-export LANG
-fi
-EOM
+#sed -i "s/^# *\($locale\)/\1/" $rootfs/etc/locale.gen
+#chroot $rootfs locale-gen
+#echo "LANG=$locale" > $rootfs/etc/locale.conf
+#cat <<'EOM' > $rootfs/etc/profile.d/default-lang.sh
+#if [ -z "$LANG" ]; then
+#source /etc/locale.conf
+#export LANG
+#fi
+#EOM
 
 # Install kernel
-wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
-chmod +x $rootfs/usr/local/sbin/rpi-update
-SKIP_WARNING=1 SKIP_BACKUP=1 ROOT_PATH=$rootfs BOOT_PATH=$rootfs/boot $rootfs/usr/local/sbin/rpi-update
-
+#wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
+#chmod +x $rootfs/usr/local/sbin/rpi-update
+#SKIP_WARNING=1 SKIP_BACKUP=1 ROOT_PATH=$rootfs BOOT_PATH=$rootfs/boot $rootfs/usr/local/sbin/rpi-update
+#
 # Install raspberry userland firmware
-git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
-chroot $rootfs <<_EOF
-cd /tmp/userland
-./buildme --aarch64
-_EOF
+#git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
+#chroot $rootfs <<_EOF
+#cd /tmp/userland
+#./buildme --aarch64
+#_EOF
