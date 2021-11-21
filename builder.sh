@@ -10,7 +10,7 @@ source example.conf
 source custom.conf 2> /dev/null
 
 # Variables
-base_packages="ca-certificates wget curl tzdata"
+base_packages="ca-certificates wget curl tzdata locales"
 packages="$base_packages $custom_packages"
 
 # Preparation
