@@ -26,7 +26,7 @@ turquoiseColor="\e[0;36m\e[1m"
 dot="${redColor}[${endColor}${yellowColor}*${endColor}${redColor}]${endColor}"
 
 # Preparation
-rm -rf $word_dir 2> /dev/null
+rm -rf $work_dir
 mkdir $work_dir
 
 # First stage
@@ -130,71 +130,6 @@ echo -e "\n$dot$greenColor Creating image...$endColor"
 # Create out image directory
 rm -rf $out_dir
 mkdir $out_dir
-
-# Calculate the space to create the image.
-echo -e "${yellowColor}Calculation the space to create the image$endColor"
-
-rootsize=$(du -s -B1 "$rootfs" --exclude="${rootfs}"/boot | cut -f1)
-rootsize=$((ROOTSIZE * 5 * 1024 / 5 / 1000 / 1024))
-raw_size=$(($((free_space * 1024)) + rootsize + $((boot_mb * 1024)) + 4096))
-
-# Create image
-mkdir $out_dir
-image="${out_dir}/${image_name}.img"
-fallocate -l "$(echo ${raw_size}Ki | numfmt --from=iec-i --to=si)" "${image}"
-
-# Create the disk partitions
-echo -e "${yellowColor}Creation disk partitions$endColor"
-
-parted -s "${image}" mklabel msdos
-parted -s "${image}" mkpart primary fat32 1MiB $((boot_mb + 1))MiB
-parted -s -a minimal "${image}" mkpart primary $((boot_mb + 1))MiB 100%
-
-# Set the partition variables
-echo -e "${yellowColor}Setting partitions variables$endColor"
-
-loopdevice=$(losetup --show -fP "${image}")
-boot_loop="${LOOPDEVICE}p1"
-root_loop="${LOOPDEVICE}p2"
-
-# Format partitions
-echo -e "${yellowColor}Formatting partions$endColor"
-
-# Change for (ext3)
-mkfs.vfat -n BOOT -F 32 -v "$boot_loop"
-features="-O ^64bit,^metadata_csum -E stride=2,stripe-width=1024 -b 4096"
-# shellcheck disable=SC2086
-mkfs $features -t "$fstype" -L ROOTFS "$root_loop"
-
-# Create the dirs for the partitions and mount them
-echo -e "${yellowColor}Create mount directories and mount them$endColor"
-
-mount_dir="$work_dir/mount"
-mkdir -p "$mount_dir"
-mount "$root_loop" "$mount_dir"
-mkdir -p "$mout_dir/boot"
-mount "$boot_loop" "$mout_dir/boot"
-
-# Rsyn rootfs into image file
-echo -e "${yellowColor}Rsyn system to image$endColor"
-
-rsync -aHAXx --exclude boot "${rootfs}/" "${mount_dir}/"
-rsync -rtx "${rootfs}/boot" "${mount_dir}/" && sync
-
-# Unmount filesystem
-echo -e "${yellowColor}Unmount filesystem$endColor"
-
-umount -l "$mount_dir/boot"
-umount -l "$mount_dir"
-
-# Check filesystem
-dosfsck -w -r -l -a -t "$boot_loop"
-e2fsck -y -f "$root_loop"
-
-# Remove loop devices
-echo -e "${yellowColor}Removing loop devices$endColor"
-blockdev --flushbufs "${loopdevice}"
-losetup -d "${loopdevice}"
 
 # Delete work directory
 if [ "$delete_work_dir" == "yes" ]
