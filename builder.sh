@@ -10,6 +10,7 @@ source example.conf
 source custom.conf 2> /dev/null
 
 # Variables
+# Packages
 base_packages="ca-certificates binutils wget curl wget gnupg cron rsyslog"
 packages="$base_packages $custom_packages"
 # Colors
