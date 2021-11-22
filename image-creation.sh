@@ -10,6 +10,7 @@ FREE_SPACE=${FREE_SPACE:-"256"}
 ARCHITECTURE=${ARCHITECTURE:-"arm64"}
 IMGNAME="debian.img"
 BUILDDIR="${work_dir}"
+BOOT="/boot"
 
 # Image creation
 ROOTSIZE=$(du -s -B1 "$R" --exclude="${R}"/boot | cut -f1)
