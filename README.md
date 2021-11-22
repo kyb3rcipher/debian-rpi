@@ -1,4 +1,4 @@
-# Debian Raspberry Builder
+# Parrot OS ARM Builder
 For customize contruction create copy of **example.conf** to custom.conf and edit the file.
 
 Use:
