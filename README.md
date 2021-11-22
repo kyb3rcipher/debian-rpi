@@ -6,8 +6,7 @@ Use:
 ./builder.sh
 Install dependeces with:
 ```bash
-apt update
-apt install -y debootstrap qemu-user-static wget
+./requeriments.sh
 ```
 
 Note: Execute all with root permisos (you can use sudo).

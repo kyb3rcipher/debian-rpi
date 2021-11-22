@@ -122,3 +122,63 @@ _EOF
 #cd /tmp/userland
 #./buildme --aarch64
 #_EOF
+
+# Create image
+
+# create out image directory
+rm -rf $out_dir
+mkdir $out_dir
+
+# Calculate the space to create the image.
+ROOT_SIZE=$(du -s -B1 "${rootfs}" --exclude="${rootfs}"/boot | cut -f1)
+ROOT_EXTRA=$((ROOT_SIZE * 5 * 1024 / 5 / 1024 / 1000))
+RAW_SIZE=$(($((FREE_SPACE * 1024)) + ROOT_EXTRA + $((BOOTSIZE * 1024)) + 4096))
+IMG_SIZE=$(echo "${RAW_SIZE}"Ki | numfmt --from=iec-i --to=si)
+
+# Create image
+fallocate -l "${IMG_SIZE}" "${out_dir}/${image_name}.img"
+
+# Create the disk partitions
+parted -s "${out_dir}/${image_name}.img" mklabel msdos
+parted -s "${out_dir}/${image_name}.img" mkpart primary fat32 1MiB "${BOOTSIZE}"MiB
+parted -s -a minimal "${out_dir}/${out_dir}.img" mkpart primary "ext4" "${BOOTSIZE}"MiB 100%
+
+# Set the partition variables
+LOOP_DEVICE=$(losetup --show -fP "${out_dir}/${image_name}.img")
+BOOTP="${LOOP_DEVICE}p1"
+ROOTP="${LOOP_DEVICE}p2"
+
+# Format partitions
+mkfs.vfat -n BOOT -F 32 "${BOOTP}"
+features="^64bit,^metadata_csum"
+mkfs -O "$features" -t "ext4" -L ROOTFS "${ROOTP}"
+
+# Create the dirs for the partitions and mount them
+image_dir="$work_dir/mount"
+mkdir -p "${image_dir}"/work_dir
+mount "${ROOTP}" "${image_dir}"
+mkdir -p "${IMAGE_DIR}"/boot
+mount "${BOOTP}" "${image_dir}"/boot
+
+# Rsyn rootfs into image file
+rsync -HPavz -q --exclude boot "${rootfs}/" "${image_dir}/"
+sync
+rsync -rtx -q "${roootfs}"/boot "${image_dir}/"
+sync
+
+# Unmount filesystem
+umount -l "${BOOTP}"
+umount -l "${ROOTP}"
+
+# Check filesystem
+dosfsck -w -r -a -t "$BOOTP"
+e2fsck -y -f "${ROOTP}"
+
+# Remove loop devices
+losetup -d "${LOOP_DEVICE}"
+
+# Delete work directory
+if [ "$delete_work_dir" == "yes" ]
+then
+    rm -rf $work_dir
+fi
