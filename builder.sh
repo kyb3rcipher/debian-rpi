@@ -45,10 +45,8 @@ chroot $rootfs /debootstrap/debootstrap --second-stage
 chroot $rootfs apt update
 
 # Install packages
-chroot $rootfs <<_EOF
 echo -e "\n$dot$green Installing packages...$endColor"
-apt install -y $packages
-_EOF
+chroot $rootfs apt install -y $packages
 
 # Set mounting system files
 echo -e "\n${yellowColor}Setting mounting systm files...$endColor"
@@ -60,7 +58,7 @@ proc              /proc           proc    defaults          0       0
 EOM
 
 # Configure networking
-echo -e "\n${yellowColor}Configuring netorking...$endColor"
+echo -e "\n${yellowColor}Configuring networking...$endColor"
 chroot $rootfs apt install -y resolvconf
 chroot $rootfs systemctl enable resolvconf
 rm -rf $rootfs/etc/resolv.conf
