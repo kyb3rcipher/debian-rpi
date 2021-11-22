@@ -9,6 +9,7 @@ Install dependeces with:
 ./requeriments.sh
 ```
 
+## Personalizate
 Note: Execute all with root permisos (you can use sudo).
 
 By: [Kyb3r](https://kyb3rvizsla.com)
