@@ -7,7 +7,10 @@
 #---------------------------------------
 
 source example.conf
-source custom.conf 2> /dev/null
+if [ -f config.conf ]; 
+then 
+    source config.conf; 
+fi
 
 # Variables
 # Packages
@@ -140,7 +143,7 @@ fi
 _EOF
 
 # Clean system
-rm -rf /tmp/*
+rm -rf $rootfs/tmp/*
 
 # Create image
 echo -e "\n$dot$greenColor Creating image...$endColor"
