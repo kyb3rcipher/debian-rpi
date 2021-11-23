@@ -23,7 +23,7 @@ greenColor="\e[0;32m\e[1m"
 purpleColor="\e[0;35m\e[1m"
 yellowColor="\e[0;33m\e[1m"
 turquoiseColor="\e[0;36m\e[1m"
--lo
+roseColor="\e[38;5;200m\e[1m"
 dot="${redColor}[${endColor}${yellowColor}*${endColor}${redColor}]${endColor}"
 
 function banner(){
