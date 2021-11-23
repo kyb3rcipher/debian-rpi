@@ -52,13 +52,16 @@ echo "$(date +"DAY: %d MONTH: %b HOUR: %I MINUTE: %M SECOND: %S")" > $work_dir/b
 
 # Second stage
 echo -e "\n$dot$greenColor Starting second stage...$endColor"
+echo -e "\n${yellowColor}Installing QEMU binary...$endColor"
 if [ "$architecture" == "arm64" ]
 then
     cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin
 else
     cp /usr/bin/qemu-arm-static $rootfs/usr/bin
 fi
+echo -e "\n${yellowColor}Executing second stage...$endColor"
 chroot $rootfs /debootstrap/debootstrap --second-stage
+echo -e "\n${yellowColor}Updating repositories...$endColor"
 chroot $rootfs apt update
 
 # Install packages
@@ -66,7 +69,7 @@ echo -e "\n$dot$green Installing packages...$endColor"
 chroot $rootfs apt install -y $packages
 
 # Set mounting system files
-echo -e "\n${yellowColor}Setting mounting systm files...$endColor"
+echo -e "\n${yellowColor}Setting mounting system files...$endColor"
 cat >$rootfs/etc/fstab <<EOM
 # <file system>   <dir>           <type>  <options>         <dump>  <pass>
 proc              /proc           proc    defaults          0       0
