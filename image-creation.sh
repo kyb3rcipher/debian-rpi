@@ -6,6 +6,7 @@ BOOT_MB=${BOOT_MB:-"136"}
 FREE_SPACE=${FREE_SPACE:-"256"}
 BUILDDIR="work_dir"
 IMGNAME="debian.img"
+BOOT="/boot"
 
 # Calcule el espacio para crear la imagen.
 ROOTSIZE=$(du -s -B1 "$R" --exclude="${R}"/boot | cut -f1)
