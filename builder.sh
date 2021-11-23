@@ -28,11 +28,9 @@ dot="${redColor}[${endColor}${yellowColor}*${endColor}${redColor}]${endColor}"
 
 function banner(){
 clear
-echo -e "                                                                                                                             "
 echo -e "${roseColor} __   ___  __                 ${redColor} __   __       ${yellowColor} __               __   ___  __  ${endColor}"
 echo -e "${roseColor}|  \ |__  |__) |  /\  |\ |    ${redColor}|__) |__) |    ${yellowColor}|__) |  | | |    |  \ |__  |__) ${endColor}"
 echo -e "${roseColor}|__/ |___ |__) | /~~\ | \|    ${redColor}|  \ |    |    ${yellowColor}|__) \__/ | |___ |__/ |___ |  \ ${endColor}"
-echo -e "                                                                                                                             "
 }
 
 function init_script(){
