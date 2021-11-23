@@ -23,9 +23,22 @@ greenColor="\e[0;32m\e[1m"
 purpleColor="\e[0;35m\e[1m"
 yellowColor="\e[0;33m\e[1m"
 turquoiseColor="\e[0;36m\e[1m"
+-lo
 dot="${redColor}[${endColor}${yellowColor}*${endColor}${redColor}]${endColor}"
 
-# Preparation
+function banner(){
+clear
+echo -e "                                                                                                                             "
+echo -e "${roseColor} __   ___  __                 ${redColor} __   __       ${yellowColor} __               __   ___  __  ${endColor}"
+echo -e "${roseColor}|  \ |__  |__) |  /\  |\ |    ${redColor}|__) |__) |    ${yellowColor}|__) |  | | |    |  \ |__  |__) ${endColor}"
+echo -e "${roseColor}|__/ |___ |__) | /~~\ | \|    ${redColor}|  \ |    |    ${yellowColor}|__) \__/ | |___ |__/ |___ |  \ ${endColor}"
+echo -e "                                                                                                                             "
+}
+
+function init_script(){
+banner
+
+# Create base directories
 rm -rf $work_dir
 mkdir $work_dir
 
@@ -78,7 +91,7 @@ ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
 EOM
 rm $rootfs/hostname
-echo "$host_name" > $ROOTFS/etc/hostname
+echo "$host_name" > $rootfs/etc/hostname
 
 # Set users
 echo -e "${yellowColor}Setting users$endColor"
@@ -117,12 +130,20 @@ SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
 _EOF
 
 # Install raspberry userland firmware
-#chroot $rootfs apt install -y curl binutils cmake build-essential
-#git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
-#chroot $rootfs <<_EOF
-#cd /tmp/userland
-#./buildme --aarch64
-#_EOF
+chroot $rootfs apt install -y sudo curl binutils cmake git build-essential
+git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
+chroot $rootfs <<_EOF
+cd /tmp/userland
+if [ "$architecture" == "arm64" ]
+then
+    ./buildme --aarch64
+else
+    ./buildme
+fi
+_EOF
+
+# Clean system
+rm -rf /tmp/*
 
 # Create image
 echo -e "\n$dot$greenColor Creating image...$endColor"
@@ -136,4 +157,13 @@ if [ "$delete_work_dir" == "yes" ]
 then
     echo -e "${yellowColor}Deleting working directory$endColor"
     rm -rf $work_dir
+fi
+}
+
+#---------- Installer ----------
+if [ `whoami` == "root" ]; then
+    banner;
+    init_script;
+else
+    echo -e "${yellowColor}R U Drunk? This script needs to be run as ${endColor}${redColor}root${endColor}${yellowColor}!${endColor}";
 fi
