@@ -11,8 +11,10 @@ source custom.conf 2> /dev/null
 
 # Variables
 # Packages
-base_packages="ca-certificates binutils wget curl wget gnupg cron rsyslog"
-packages="$base_packages $custom_packages"
+base_packages="ca-certificates binutils wget curl git gnupg cron"
+compiler_packages="sudo binutils cmake build-essential"
+zone_packages="locales tzdata"
+packages="$base_packages $compiler_packages $zone_packages $custom_packages"
 # Colors
 endColor="\e[0m\e[0m"
 redColor="\e[0;31m\e[1m"
@@ -99,7 +101,6 @@ _EOF
 
 # Set timezone
 echo -e "${yellowColor}Setting timezone$endColor"
-apt install -y tzdata
 chroot $rootfs <<_EOF
 ln -nfs /usr/share/zoneinfo/$timezone /etc/localtime
 dpkg-reconfigure -fnoninteractive tzdata
@@ -107,7 +108,6 @@ _EOF
 
 # Set locales
 echo -e "${yellowColor}Setting locales$endColor"
-chroot $rootfs apt install -y locales
 sed -i "s/^# *\($locale\)/\1/" $rootfs/etc/locale.gen
 chroot $rootfs locale-gen
 echo "LANG=$locale" > $rootfs/etc/locale.conf
@@ -128,7 +128,6 @@ SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
 _EOF
 
 # Install raspberry userland firmware
-chroot $rootfs apt install -y sudo curl binutils cmake git build-essential
 git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
 chroot $rootfs <<_EOF
 cd /tmp/userland
