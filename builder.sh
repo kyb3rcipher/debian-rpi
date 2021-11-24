@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #--------------------------------------
-# Parrot OS arm builder
+# Debian raspberry pi builder
 # LICENSE: MIT
 # By: Kyb3r Vizsla <kyb3rvizsla.com>
 #---------------------------------------
