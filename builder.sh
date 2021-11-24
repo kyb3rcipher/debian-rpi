@@ -30,6 +30,7 @@ yellowColor="\e[0;33m\e[1m"
 turquoiseColor="\e[0;36m\e[1m"
 roseColor="\e[38;5;200m\e[1m"
 dot="${redColor}[${endColor}${yellowColor}*${endColor}${redColor}]${endColor}"
+alias success='echo -e "\n${greenColor}Successful${endColor} ✔️"'
 
 function banner(){
 clear
@@ -49,6 +50,7 @@ mkdir $work_dir
 echo -e "\n$dot$greenColor Starting first stage...$endColor"
 debootstrap --foreign --arch="$architecture" $debian_release $rootfs
 echo "$(date +"DAY: %d MONTH: %b HOUR: %I MINUTE: %M SECOND: %S")" > $work_dir/build-date.txt
+success
 
 # Second stage
 echo -e "\n$dot$greenColor Starting second stage...$endColor"
@@ -63,11 +65,12 @@ echo -e "\n${yellowColor}Executing second stage...$endColor"
 chroot $rootfs /debootstrap/debootstrap --second-stage
 echo -e "\n${yellowColor}Updating repositories...$endColor"
 chroot $rootfs apt update
+success
 
 # Install packages
 echo -e "\n$dot$green Installing packages...$endColor"
 chroot $rootfs apt install -y $packages
-
+success
 # Set mounting system files
 echo -e "\n${yellowColor}Setting mounting system files...$endColor"
 cat >$rootfs/etc/fstab <<EOM
@@ -76,6 +79,7 @@ proc              /proc           proc    defaults          0       0
 /dev/mmcblk0p1    /boot           vfat    defaults          0       2
 /dev/mmcblk0p2    /               $fstype    defaults,noatime  0       1
 EOM
+success
 
 # Configure networking
 echo -e "\n${yellowColor}Configuring networking...$endColor"
@@ -83,6 +87,7 @@ chroot $rootfs apt install -y resolvconf
 chroot $rootfs systemctl enable resolvconf
 rm -rf $rootfs/etc/resolv.conf
 echo "nameserver $name_server" > $rootfs/etc/resolv.conf
+succes
 
 # Setting...
 echo -e "\n$dot$greenColor Starting settings...$endColor"
@@ -98,12 +103,14 @@ ff02::2         ip6-allrouters
 EOM
 rm $rootfs/hostname
 echo "$host_name" > $rootfs/etc/hostname
+success
 
 # Set users
 echo -e "${yellowColor}Setting users$endColor"
 chroot $rootfs <<_EOF
 echo "root:${root_password}" | chpasswd
 _EOF
+success
 
 # Set timezone
 echo -e "${yellowColor}Setting timezone$endColor"
@@ -111,6 +118,7 @@ chroot $rootfs <<_EOF
 ln -nfs /usr/share/zoneinfo/$timezone /etc/localtime
 dpkg-reconfigure -fnoninteractive tzdata
 _EOF
+succes
 
 # Set locales
 echo -e "${yellowColor}Setting locales$endColor"
@@ -123,6 +131,7 @@ source /etc/locale.conf
 export LANG
 fi
 EOM
+succes
 
 # Install kernel
 echo -e "\n$dot$greenColor Installing kernel...$endColor"
@@ -135,6 +144,7 @@ _EOF
 # Add boot config
 echo 'dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0' > $rootfs/boot/cmdline.txt
 echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > $rootfs/boot/config.txt
+success
 
 # Install raspberry userland firmware
 git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
@@ -150,6 +160,7 @@ cd /tmp/userland
 ./buildme
 _EOF
 fi
+succes
 
 # Clean system
 rm -rf $rootfs/tmp/*
