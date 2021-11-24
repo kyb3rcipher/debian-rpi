@@ -7,9 +7,9 @@
 #---------------------------------------
 
 source example.conf
-if [ -f config.conf ];
+if [ -f custom.conf ];
 then
-    source config.conf;
+    source custom.conf;
 fi
 
 # Variables
@@ -145,19 +145,6 @@ fi
 EOM
 finished
 
-# Install kernel
-echo -e "\n$dot$greenColor Installing kernel...$endColor"
-chroot $rootfs apt install -y curl binutils
-wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
-chmod +x $rootfs/usr/local/sbin/rpi-update
-chroot $rootfs <<_EOF
-SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
-_EOF
-# Add boot config
-echo 'dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0' > $rootfs/boot/cmdline.txt
-echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > $rootfs/boot/config.txt
-finished
-
 # Install raspberry userland firmware
 git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
 if [ "$architecture" == "arm64" ]
@@ -172,6 +159,19 @@ cd /tmp/userland
 ./buildme
 _EOF
 fi
+finished
+
+# Install kernel
+echo -e "\n$dot$greenColor Installing kernel...$endColor"
+chroot $rootfs apt install -y curl binutils
+wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
+chmod +x $rootfs/usr/local/sbin/rpi-update
+chroot $rootfs <<_EOF
+SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
+_EOF
+# Add boot config
+echo 'dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0' > $rootfs/boot/cmdline.txt
+echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > $rootfs/boot/config.txt
 finished
 
 # Clean system
