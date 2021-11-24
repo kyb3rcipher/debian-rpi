@@ -7,9 +7,9 @@
 #---------------------------------------
 
 source example.conf
-if [ -f config.conf ]; 
-then 
-    source config.conf; 
+if [ -f config.conf ];
+then
+    source config.conf;
 fi
 
 # Variables
@@ -138,15 +138,18 @@ echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > $rootfs/boot/config.t
 
 # Install raspberry userland firmware
 git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
-chroot $rootfs <<_EOF
-cd /tmp/userland
 if [ "$architecture" == "arm64" ]
 then
-    ./buildme --aarch64
-else
-    ./buildme
-fi
+chroot $rootfs <<_EOF
+cd /tmp/userland
+./buildme --aarch64
 _EOF
+else
+chroot $rootfs <<_EOF
+cd /tmp/userland
+./buildme
+_EOF
+fi
 
 # Clean system
 rm -rf $rootfs/tmp/*
