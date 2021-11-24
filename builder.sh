@@ -80,8 +80,10 @@ then
 else
     cp /usr/bin/qemu-arm-static $rootfs/usr/bin
 fi
+finished
 echo -e "\n${yellowColor}Executing second stage...$endColor"
 chroot $rootfs /debootstrap/debootstrap --second-stage
+finished
 echo -e "\n${yellowColor}Updating repositories...$endColor"
 chroot $rootfs apt update
 finished
@@ -181,7 +183,25 @@ echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > $rootfs/boot/config.t
 finished
 
 # Clean system
+# packages
+apt-get -y remove --purge $compiler_packages
+# build
 rm -rf $rootfs/tmp/*
+rm -rf $rootfs/usr/bin/qemu*
+rm -rf $rootfs/root/.bash_history
+# man pages
+rm -rf $rootfs/usr/share/man/*
+rm -rf $rootfs/usr/share/info/*
+# apt
+rm -rf $rootfs/var/lib/dpkg/*-old
+rm -rf $rootfs/var/lib/apt/lists/*
+rm -rf $rootfs/var/cache/apt/*.bin
+rm -rf $rootfs/var/cache/debconf/*-old
+rm -rf $rootfs/var/cache/apt/archives/*
+# id
+rm -rf $rootfs/etc/machine-id
+rm -rf $rootfs/var/lib/dbus/machine-id
+finished
 
 # Create image
 echo -e "\n$dot$greenColor Creating image...$endColor"
