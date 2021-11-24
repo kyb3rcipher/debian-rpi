@@ -30,7 +30,7 @@ yellowColor="\e[0;33m\e[1m"
 turquoiseColor="\e[0;36m\e[1m"
 roseColor="\e[38;5;200m\e[1m"
 dot="${redColor}[${endColor}${yellowColor}*${endColor}${redColor}]${endColor}"
-finished(){echo -e "\n${greenColor}Finished${endColor} ✔️"}
+function finished(){echo -e "\n${greenColor}Finished${endColor} ✔️"}
 
 # Functions
 # CTRL + C
