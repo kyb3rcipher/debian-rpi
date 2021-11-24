@@ -32,6 +32,15 @@ roseColor="\e[38;5;200m\e[1m"
 dot="${redColor}[${endColor}${yellowColor}*${endColor}${redColor}]${endColor}"
 alias success='echo -e "\n${greenColor}Successful${endColor} ✔️"'
 
+# Functions
+# CTRL + C
+trap ctrl_c INT
+
+function ctrl_c() {
+    echo -e "\n\n${dot}${yellowColor} Exiting...${endColor}"
+    exit
+}
+
 function banner(){
 clear
 echo -e "${roseColor} __   ___  __                 ${redColor} __   __       ${yellowColor} __               __   ___  __  ${endColor}"
