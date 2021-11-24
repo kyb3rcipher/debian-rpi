@@ -15,9 +15,10 @@ fi
 # Variables
 # Packages
 base_packages="ca-certificates binutils wget curl git gnupg cron"
-compiler_packages="sudo binutils cmake build-essential"
 zone_packages="locales tzdata"
-packages="$base_packages $compiler_packages $zone_packages $custom_packages"
+network_packages="ca-certificates resolvconf"
+compiler_packages="sudo binutils cmake build-essential"
+packages="$base_packages $zone_packages $network_packages $compiler_packages $custom_packages"
 # Colors
 endColor="\e[0m\e[0m"
 redColor="\e[0;31m\e[1m"
@@ -48,10 +49,17 @@ clear
 echo -e "${roseColor} __   ___  __                 ${redColor} __   __       ${yellowColor} __               __   ___  __  ${endColor}"
 echo -e "${roseColor}|  \ |__  |__) |  /\  |\ |    ${redColor}|__) |__) |    ${yellowColor}|__) |  | | |    |  \ |__  |__) ${endColor}"
 echo -e "${roseColor}|__/ |___ |__) | /~~\ | \|    ${redColor}|  \ |    |    ${yellowColor}|__) \__/ | |___ |__/ |___ |  \ ${endColor}"
+
+echo -e "\nThe configuration is:"
+echo -e " ${purpleColor}Hostname: ${cyanColor}$host_name"
+echo -e " ${purpleColor}Architecture: ${cyanColor}$architecture"
+echo -e " ${purpleColor}Out directory: ${cyanColor}$out_dir"
+echo -e " ${purpleColor}Work directory: ${cyanColor}$work_dir"
 }
 
 function init_script(){
 banner
+sleep 4
 
 # Create base directories
 rm -rf $work_dir
@@ -95,7 +103,6 @@ finished
 
 # Configure networking
 echo -e "\n${yellowColor}Configuring networking...$endColor"
-chroot $rootfs apt install -y resolvconf
 chroot $rootfs systemctl enable resolvconf
 rm -rf $rootfs/etc/resolv.conf
 echo "nameserver $name_server" > $rootfs/etc/resolv.conf
@@ -113,7 +120,6 @@ cat >$rootfs/etc/hosts <<EOM
 ff02::1         ip6-allnodes
 ff02::2         ip6-allrouters
 EOM
-rm $rootfs/hostname
 echo "$host_name" > $rootfs/etc/hostname
 finished
 
