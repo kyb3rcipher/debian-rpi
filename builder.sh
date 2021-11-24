@@ -14,7 +14,7 @@ fi
 
 # Variables
 # Packages
-base_packages="ca-certificates binutils wget curl git gnupg cron"
+base_packages="binutils wget curl git gnupg cron"
 zone_packages="locales tzdata"
 network_packages="ca-certificates resolvconf"
 compiler_packages="sudo binutils cmake build-essential"
