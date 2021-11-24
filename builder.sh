@@ -14,7 +14,7 @@ fi
 
 # Variables
 # Packages
-base_packages="binutils wget curl git gnupg cron"
+mase_packages="binutils wget curl git gnupg cron"
 zone_packages="locales tzdata"
 network_packages="ca-certificates resolvconf"
 compiler_packages="sudo binutils cmake build-essential"
@@ -189,6 +189,7 @@ apt-get -y remove --purge $compiler_packages
 rm -rf $rootfs/tmp/*
 rm -rf $rootfs/usr/bin/qemu*
 rm -rf $rootfs/root/.bash_history
+rm -rf $rootfs/usr/local/sbin/rpi-update
 # man pages
 rm -rf $rootfs/usr/share/man/*
 rm -rf $rootfs/usr/share/info/*
