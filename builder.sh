@@ -30,7 +30,7 @@ yellowColor="\e[0;33m\e[1m"
 turquoiseColor="\e[0;36m\e[1m"
 roseColor="\e[38;5;200m\e[1m"
 dot="${redColor}[${endColor}${yellowColor}*${endColor}${redColor}]${endColor}"
-alias success='echo -e "\n${greenColor}Successful${endColor} ✔️"'
+success(){echo -e "\n${greenColor}Successful${endColor} ✔️"}
 
 # Functions
 # CTRL + C
