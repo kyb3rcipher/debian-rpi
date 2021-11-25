@@ -29,6 +29,7 @@ To customize your images you must create a copy of the example.conf file with na
 - out_dir - image out directory
 - work_dir - working directory
 - rootfs - rootfs system directory
+- mount_dir - mount directory for image creation
 
 (those that are marked are the symbol ⚠️ are options that we recommend not to change)
 
