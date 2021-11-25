@@ -33,6 +33,9 @@ To customize your images you must create a copy of the example.conf file with na
 
 (those that are marked are the symbol ⚠️ are options that we recommend not to change)
 
+## Test image
+Although it is optional. To test your image you must verify that the partitions were created correctly, for this you must mount the image you can do it with ```gnome-disk-utility``` installing it with: ```apt install -y gnome-disk-utility```. Then you should open it:
+
 Note: Execute all with root permisos (you can use sudo).
 
 By: [Kyb3r](https://kyb3rvizsla.com)
