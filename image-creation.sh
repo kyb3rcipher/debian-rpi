@@ -3,7 +3,6 @@
 FSTYPE=${FSTYPE:-"ext4"}
 BOOT_MB=${BOOT_MB:-"136"}
 FREE_SPACE=${FREE_SPACE:-"256"}
-BOOT="/boot"
 
 source example.conf
 if [ -f custom.conf ];
@@ -35,15 +34,15 @@ mkfs $feautures -t "$FSTYPE" -L ROOTFS "$ROOT_LOOP"
 # Crear los directorios para las particiones y montarlas
 mkdir -p "$mount_dir"
 mount "$ROOT_LOOP" "$mount_dir"
-mkdir -p "$mount_dir/$BOOT"
-mount "$BOOT_LOOP" "$mount_dir/$BOOT"
+mkdir -p "$mount_dir/boot"
+mount "$BOOT_LOOP" "$mount_dir/boot"
 
 rsync -aHAXx --exclude boot "${rootfs}/" "${mount_dir}/"
 rsync -rtx "${rootfs}/boot" "${mount_dir}/" && sync
 
 # Desmontar sistema de archivos y eliminar compilación
 
-umount -l "$mount_dir/$BOOT"
+umount -l "$mount_dir/boot"
 umount -l "$mount_dir"
 
 dosfsck -w -r -l -a -t "$BOOT_LOOP"
