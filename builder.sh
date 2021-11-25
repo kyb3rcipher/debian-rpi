@@ -61,7 +61,10 @@ echo -e " ${purpleColor}Work directory: ${cyanColor}$work_dir"
 sleep 4
 
 # Create base directories
-rm -rf $work_dir
+if [ -d $work_dir ];
+then
+    rm -rf $work_dir
+fi
 mkdir $work_dir
 
 # First stage
@@ -215,6 +218,10 @@ then
 fi
 
 # End script
+if [ -d $out_dir ];
+then
+    rm -rf $out_dir
+fi
 mkdir $out_dir
 mv $image_name $out_dir
 sleep 2
