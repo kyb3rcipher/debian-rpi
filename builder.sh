@@ -49,16 +49,15 @@ clear
 echo -e "${roseColor} __   ___  __                 ${redColor} __   __       ${yellowColor} __               __   ___  __  ${endColor}"
 echo -e "${roseColor}|  \ |__  |__) |  /\  |\ |    ${redColor}|__) |__) |    ${yellowColor}|__) |  | | |    |  \ |__  |__) ${endColor}"
 echo -e "${roseColor}|__/ |___ |__) | /~~\ | \|    ${redColor}|  \ |    |    ${yellowColor}|__) \__/ | |___ |__/ |___ |  \ ${endColor}"
+}
 
+function init_script(){
+banner
 echo -e "\nThe configuration is:"
 echo -e " ${purpleColor}Hostname: ${cyanColor}$host_name"
 echo -e " ${purpleColor}Architecture: ${cyanColor}$architecture"
 echo -e " ${purpleColor}Out directory: ${cyanColor}$out_dir"
 echo -e " ${purpleColor}Work directory: ${cyanColor}$work_dir"
-}
-
-function init_script(){
-banner
 sleep 4
 
 # Create base directories
@@ -214,6 +213,13 @@ then
     echo -e "${yellowColor}Deleting working directory$endColor"
     rm -rf $work_dir
 fi
+
+# End script
+mkdir $out_dir
+mv $image_name $out_dir
+sleep 2
+
+echo -e "\n${purpleColor}[${endColor}${yellowColor}*${endColor}${purpleColor}]${endColor} ${greenColor}The image was created successfully, you can find it in: ${cyanColor}${out_dir}/${image_name}${endColor}"
 }
 
 #---------- Installer ----------
