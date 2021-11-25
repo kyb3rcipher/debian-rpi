@@ -1,13 +1,18 @@
 # Debian raspberry pi builder
-For customize contruction create copy of **example.conf** to custom.conf and edit the file.
 
-Use:
-```bash
-./builder.sh
-```
+## Preparation
+The script works on Debian and derivatives like Parrot or Ubuntu. Therefore you will need one of these.
+
+## Installation
 Install dependeces with:
 ```bash
 ./requeriments.sh
+```
+
+# Use
+Execute builder with:
+```bash
+./builder.sh
 ```
 
 ## Personalizate
