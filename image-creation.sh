@@ -28,9 +28,9 @@ ROOT_LOOP="${LOOPDEVICE}p2"
 
 mkfs.vfat -n BOOT -F 32 -v "$BOOT_LOOP"
 
-FEATURES="-O ^64bit,^metadata_csum -E stride=2,stripe-width=1024 -b 4096"
+features="-O ^64bit,^metadata_csum -E stride=2,stripe-width=1024 -b 4096"
 # shellcheck disable=SC2086
-mkfs $FEATURES -t "$FSTYPE" -L ROOTFS "$ROOT_LOOP"
+mkfs $feautures -t "$FSTYPE" -L ROOTFS "$ROOT_LOOP"
 
 # Crear los directorios para las particiones y montarlas
 mkdir -p "$mount_dir"
