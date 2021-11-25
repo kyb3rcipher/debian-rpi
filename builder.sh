@@ -206,10 +206,7 @@ finished
 
 # Create image
 echo -e "\n$dot$greenColor Creating image...$endColor"
-
-# Create out image directory
-rm -rf $out_dir
-mkdir $out_dir
+./image-creation.sh
 
 # Delete work directory
 if [ "$delete_work_dir" == "yes" ]
