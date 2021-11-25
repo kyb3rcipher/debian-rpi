@@ -215,6 +215,7 @@ if [ "$delete_work_dir" == "yes" ]
 then
     echo -e "${yellowColor}Deleting working directory$endColor"
     rm -rf $work_dir
+    finished
 fi
 
 # End script
