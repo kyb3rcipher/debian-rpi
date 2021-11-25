@@ -9,7 +9,7 @@ Install dependeces with:
 ./requeriments.sh
 ```
 
-# Use
+## Use
 Execute builder with:
 ```bash
 ./builder.sh
