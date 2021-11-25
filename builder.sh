@@ -184,7 +184,7 @@ finished
 
 # Clean system
 # packages
-apt-get -y remove --purge $compiler_packages
+chroot $rootfs apt-get -y remove --purge $compiler_packages
 # build
 rm -rf $rootfs/tmp/*
 rm -rf $rootfs/usr/bin/qemu*
