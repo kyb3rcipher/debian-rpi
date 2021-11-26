@@ -187,6 +187,9 @@ finished
 # Clean system
 # packages
 chroot $rootfs apt-get -y remove --purge $compiler_packages
+chroot $rootfs apt-get autoremove --purge -y
+chroot $rootfs apt-get autoclean
+chroot $rootfs apt-get clean
 # build
 rm -rf $rootfs/tmp/*
 rm -rf $rootfs/usr/bin/qemu*
@@ -205,6 +208,9 @@ rm -rf $rootfs/var/cache/apt/archives/*
 rm -rf $rootfs/etc/machine-id
 rm -rf $rootfs/var/lib/dbus/machine-id
 finished
+
+# Last changes in the system
+chroot $rootfs apt update
 
 # Create image
 echo -e "\n$dot$greenColor Creating image...$endColor"
