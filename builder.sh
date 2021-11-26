@@ -213,7 +213,7 @@ chroot $rootfs apt update
 
 # Create image
 echo -e "\n$dot$greenColor Creating image...$endColor"
-./image-creation.sh
+#./image-creation.sh
 
 # Delete work directory
 if [ "$delete_work_dir" == "yes" ]
@@ -224,12 +224,12 @@ then
 fi
 
 # End script
-if [ -d $out_dir ];
-then
-    rm -rf $out_dir
-fi
-mkdir $out_dir
-mv $image_name $out_dir
+#if [ -d $out_dir ];
+#then
+#    rm -rf $out_dir
+#fi
+#mkdir $out_dir
+#mv $image_name $out_dir
 sleep 2
 
 echo -e "\n${purpleColor}[${endColor}${yellowColor}*${endColor}${purpleColor}]${endColor} ${greenColor}The image was created successfully, you can find it in: ${cyanColor}${out_dir}/${image_name}${endColor}"
