@@ -156,6 +156,7 @@ EOM
 finished
 
 # Install raspberry userland firmware
+echo -e "\n$dot$greenColor Installing raspberry pi userland firmware...$endColor"
 git clone https://github.com/raspberrypi/userland.git $rootfs/tmp/userland
 if [ "$architecture" == "arm64" ]
 then
@@ -184,6 +185,7 @@ cp -r boot/* $rootfs/boot
 finished
 
 # Clean system
+echo -e "${yellowColor}Cleaning system$endColor"
 # packages
 chroot $rootfs apt-get -y remove --purge $compiler_packages
 chroot $rootfs apt-get autoremove --purge -y
@@ -212,7 +214,7 @@ finished
 chroot $rootfs apt update
 
 # Create image
-echo -e "\n$dot$greenColor Creating image...$endColor"
+#echo -e "\n$dot$greenColor Creating image...$endColor"
 #./image-creation.sh
 
 # Delete work directory
