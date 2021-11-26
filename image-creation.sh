@@ -1,6 +1,5 @@
 #!/bin/bash
 
-FSTYPE=${FSTYPE:-"ext4"}
 BOOT_MB=${BOOT_MB:-"136"}
 FREE_SPACE=${FREE_SPACE:-"256"}
 
@@ -29,7 +28,7 @@ mkfs.vfat -n BOOT -F 32 -v "$BOOT_LOOP"
 
 features="-O ^64bit,^metadata_csum -E stride=2,stripe-width=1024 -b 4096"
 # shellcheck disable=SC2086
-mkfs $feautures -t "$FSTYPE" -L ROOTFS "$ROOT_LOOP"
+mkfs $feautures -t "ext4" -L ROOTFS "$ROOT_LOOP"
 
 # Crear los directorios para las particiones y montarlas
 mkdir -p "$mount_dir"

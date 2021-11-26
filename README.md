@@ -43,4 +43,4 @@ Although it is optional. To test your image you must verify that the partitions 
 ### Notes
 Rembember execute all with **root permisos** (you can use sudo).
 
-By: [Kyb3r](https://kyb3rvizsla.com)
+By: [Kyb2r](https://kyb3rvizsla.com)
