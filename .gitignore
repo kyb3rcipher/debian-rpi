@@ -1,3 +1,6 @@
 out_dir
 work_dir
 custom.conf
+
+#tmp
+*.img
