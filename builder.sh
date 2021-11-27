@@ -211,7 +211,9 @@ rm -rf $rootfs/var/lib/dbus/machine-id
 finished
 
 # Last changes in the system
+echo -e "${yellowColor}Last changes in system$endColor"
 chroot $rootfs apt update
+finished
 
 # Create image
 #echo -e "\n$dot$greenColor Creating image...$endColor"
