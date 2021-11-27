@@ -171,12 +171,18 @@ finished
 
 # Install kernel
 echo -e "\n$dot$greenColor Installing kernel...$endColor"
+if [ "$kernel_rpiupdate" == "yes" ]
+then
 chroot $rootfs apt install -y curl binutils
 wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
 chmod +x $rootfs/usr/local/sbin/rpi-update
 chroot $rootfs <<_EOF
 SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
 _EOF
+else
+chroot $rootfs apt update
+chroot $rootfs apt install -y linux-image-arm64/buster-backports raspi-firmware/buster-backports
+fi
 # Add boot config
 cp boot/config.txt $rootfs/boot
 cp boot/cmdline.txt $rootfs/boot
