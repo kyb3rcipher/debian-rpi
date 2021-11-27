@@ -178,13 +178,13 @@ chroot $rootfs <<_EOF
 SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
 _EOF
 # Add boot config
-echo 'dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0' > $rootfs/boot/cmdline.txt
-echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > $rootfs/boot/config.txt
+cp boot/config.txt $rootfs/boot
+cp boot/cmdline.txt $rootfs/boot
 finished
 
 # Clean system
 # packages
-chroot $rootfs apt-get -y remove --purge $compiler_packages
+#chroot $rootfs apt-get -y remove --purge $compiler_packages
 # build
 rm -rf $rootfs/tmp/*
 rm -rf $rootfs/usr/bin/qemu*
@@ -203,13 +203,6 @@ rm -rf $rootfs/var/cache/apt/archives/*
 rm -rf $rootfs/etc/machine-id
 rm -rf $rootfs/var/lib/dbus/machine-id
 finished
-
-# Create image
-echo -e "\n$dot$greenColor Creating image...$endColor"
-
-# Create out image directory
-rm -rf $out_dir
-mkdir $out_dir
 
 # Delete work directory
 if [ "$delete_work_dir" == "yes" ]
