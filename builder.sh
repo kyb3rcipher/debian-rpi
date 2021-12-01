@@ -171,15 +171,12 @@ finished
 
 # Install kernel
 echo -e "\n$dot$greenColor Installing kernel...$endColor"
-chroot $rootfs apt install -y curl binutils
-wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
-chmod +x $rootfs/usr/local/sbin/rpi-update
-chroot $rootfs <<_EOF
-SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
-_EOF
 # Add boot config
-echo 'dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait net.ifnames=0' > $rootfs/boot/cmdline.txt
-echo $'ngpu_mem=16\narm_64bit=1\ndtoverlay=vc4-fkms-v3d' > $rootfs/boot/config.txt
+echo "net.ifnames=0 dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootwait" >> $rootfs/boot/cmdline.txt
+if [ "$architecure" = "arm64" ]; then
+    echo "arm_64bit=1" >> $rootfs/boot/config.txt
+fi
+echo "hdmi_force_hotplug=1" >> $rootfs/boot/config.txt
 finished
 
 # Clean system
