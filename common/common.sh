@@ -8,35 +8,9 @@ then
 	source custom.conf;
 fi
 source common/variables.sh
+source common/functions.sh
 
-# Check requirements for builder
-tmp_variable="jedi ghost"
-
-# Check root user
-if [ `whoami` == "root" ]; then
-	tmp_variable="root"
-else
-	echo -e "${yellowColor}R U Drunk? This script needs to be run as ${endColor}${redColor}root${endColor}${yellowColor}!${endColor}"
-	exit 1
-fi
-
-# Check debian
-if [ -f /etc/debian_version ]; then
-	tmp_variable="debian"
-else
-	echo -e "${yellowColor}R U Drunk? This script needs to be run on a ${roseColor}debian${endColor}${yellowColor} or derived system${yellowColor}!${endColor}"
-	exit 1
-fi
-
-# Check dependeces
-if [ -f /tmp/parrot-arm-builder-dependeces ]; then
-	tmp_variable="yes"
-else
-	echo -e "${yellowColor}The dependencies needed for the constructor are missing I can install them by running: ${greenColor}./common/requirementes.sh${endColor}"
-	exit 1
-fi
-
-unset tmp_variable
+check_requirements
 
 # Banner
 clear
