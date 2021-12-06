@@ -28,7 +28,7 @@ echo -e "\n$dot$greenColor Installing kernel...$endColor"
 # Install kernel
 chroot $rootfs apt install -y raspberrypi-kernel raspberrypi-bootloader
 # Add boot config
-echo "net.ifnames=0 console=tty1 root=/dev/mmcblk0p2 rw rootwait" >> $rootfs/boot/cmdline.txt
+echo "net.ifnames=0 dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootwait" >> $rootfs/boot/cmdline.txt
 if [ "$architecure" = "arm64" ]; then
 	echo "arm_64bit=1" >> $rootfs/boot/config.txt
 fi
