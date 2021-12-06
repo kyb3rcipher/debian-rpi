@@ -1,15 +1,7 @@
 #!/bin/bash
 # First common script
 
-# Source files
-source common/base.conf
-if [ -f custom.conf ];
-then
-	source custom.conf;
-fi
-source common/variables.sh
-source common/functions.sh
-
+# Check system requiremenrs
 check_requirements
 
 # Banner
@@ -64,8 +56,3 @@ finished
 echo -e "\n$dot$green Installing base packages...$endColor"
 chroot $rootfs apt install -y $base_packages
 finished
-
-else
-	echo -e "${yellowColor}R U Drunk? This script needs to be run as ${endColor}${redColor}root${endColor}${yellowColor}!${endColor}";
-	exit 255
-fi

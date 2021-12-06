@@ -1,8 +1,21 @@
 #!/bin/bash
 
-#-----------------------------
-# Raspberry pi 3/4/400 builder
-#-----------------------------
+#-----------------------------------
+# Raspberry pi 3/4/400 builder (32)
+# LICENSE: MIT
+# By: Kyb3r Kryze <kyb3rkryze.com>
+#-----------------------------------
+
+# Source Files
+source common/base.conf
+if [ -f custom.conf ];
+then
+	source custom.conf;
+fi
+source common/variables.sh
+source common/functions.sh
+
+# --- Builder ---
 
 # Common script
 source common/common.sh
@@ -11,7 +24,7 @@ source common/common.sh
 set_system
 
 # Install rpi firmware
-./common/rpi_firmware.sh
+source common/rpi_firmware.sh
 
 # Clean system
 clean_system
