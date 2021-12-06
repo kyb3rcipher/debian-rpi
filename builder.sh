@@ -70,7 +70,7 @@ mkdir $work_dir
 
 # First stage
 echo -e "\n$dot$greenColor Starting first stage...$endColor"
-debootstrap --foreign --arch="$architecture" $debian_release $rootfs
+debootstrap --foreign --arch="$architecture" bullseye $rootfs
 echo "$(date +"DAY: %d MONTH: %b HOUR: %I MINUTE: %M SECOND: %S")" > $work_dir/build-date.txt
 finished
 

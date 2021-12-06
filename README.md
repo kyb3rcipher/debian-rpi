@@ -26,7 +26,7 @@ To customize your images you must create a copy of the example.conf file with na
 - install_desktop - install desktop (default xfce)
 - architecture - system architecture the options are: arm64 and armhf
 - name_server - dns server, recomended: 8.8.8.8 (google) or 1.1.1.1 (cloudflare)
-- debian_release - system release you can use ubuntu or others releases script
+- ipt
 - image_name - final image name
 - delete_work_dir - delete option from working directory (rootfs and mount)
 - bootsize - /boot size in Mib ⚠️
