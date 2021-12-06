@@ -30,7 +30,7 @@ chroot $rootfs apt install -y raspberrypi-kernel raspberrypi-bootloader
 # Add boot config
 echo "net.ifnames=0 console=tty1 root=/dev/mmcblk0p2 rw rootwait" >> $rootfs/boot/cmdline.txt
 if [ "$architecure" = "arm64" ]; then
-    echo "arm_64bit=1" >> $rootfs/boot/config.txt
+	echo "arm_64bit=1" >> $rootfs/boot/config.txt
 fi
 echo "hdmi_force_hotplug=1" >> $rootfs/boot/config.txt
 finished

@@ -37,12 +37,12 @@ function finished() {
 function text(){
 	local set_text_color="$2"
 	case $set_text_color in
-        green) text_color=$greenColor ;;
-        yellow) text_color=$yellowColor ;;
-        cyan) text_color=$cyanColor ;;
-        purple) text_color=$purpleColor ;;
-        *) text_color="$endColor" ;;
-    esac
+		green) text_color=$greenColor ;;
+		yellow) text_color=$yellowColor ;;
+		cyan) text_color=$cyanColor ;;
+		purple) text_color=$purpleColor ;;
+		*) text_color="$endColor" ;;
+	esac
 
 	echo -e "${redColor}[${yellowColor}*${redColor}] ${text_color}${1} ${endColor}"
 }
@@ -52,8 +52,8 @@ function text(){
 trap ctrl_c INT
 
 function ctrl_c() {
-    echo -e "\n\n${dot}${yellowColor} Exiting...${endColor}"
-    exit
+	echo -e "\n\n${dot}${yellowColor} Exiting...${endColor}"
+	exit
 }
 
 # Banner

@@ -90,7 +90,7 @@ FREE_SPACE=${FREE_SPACE:-"256"}
 source example.conf
 if [ -f custom.conf ];
 then
-    source custom.conf;
+	source custom.conf;
 fi
 
 # Calcule el espacio para crear la imagen.
