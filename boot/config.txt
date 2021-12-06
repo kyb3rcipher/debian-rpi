@@ -1,2 +1,0 @@
-arm_64bit=1
-hdmi_force_hotplug=1
