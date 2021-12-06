@@ -3,7 +3,7 @@
 #--------------------------------------
 # Debian raspberry pi builder
 # LICENSE: MIT
-# By: Kyb3r Vizsla <kyb3rvizsla.com>
+# By: Kyb3r Kryze <kyb3rkryze.com>
 #---------------------------------------
 
 source example.conf
@@ -172,17 +172,41 @@ _EOF
 fi
 finished
 
+# Install raspberry pi repositorie
+echo -e "\n$dot$greenColor Installing rasperry pi repo...$endColor"
+echo "deb http://archive.raspberrypi.org/debian bullseye main" >> /etc/apt/sources.list.d/raspberry.list
+chroot $rootfs apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 7FA3303E
+chroot $rootfs apt update
+finished
+
 # Install kernel
 echo -e "\n$dot$greenColor Installing kernel...$endColor"
-chroot $rootfs apt install -y curl binutils
-wget https://raw.githubusercontent.com/raspberrypi/rpi-update/master/rpi-update -O $rootfs/usr/local/sbin/rpi-update
-chmod +x $rootfs/usr/local/sbin/rpi-update
-chroot $rootfs <<_EOF
-SKIP_WARNING=1 SKIP_BACKUP=1 /usr/local/sbin/rpi-update
-_EOF
+# Install kernel
+chroot $rootfs apt install -y raspberrypi-kernel raspberrypi-bootloader
 # Add boot config
+<<<<<<< HEAD
 cp -r boot/* $rootfs/boot
+=======
+echo "net.ifnames=0 dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootwait" >> $rootfs/boot/cmdline.txt
+if [ "$architecure" = "arm64" ]; then
+    echo "arm_64bit=1" >> $rootfs/boot/config.txt
+fi
+echo "hdmi_force_hotplug=1" >> $rootfs/boot/config.txt
+>>>>>>> test
 finished
+
+# Remove raspberry pi repo
+echo -e "${yellowColor}Removing raspberry pi repo$endColor"
+rm $rootfs/etc/apt/sources.list.d/rapsberry.list
+apt update
+finished
+
+# Install desktop (xfce)
+if [ "$install_desktop" = "yes" ]; then
+    echo -e "\n$dot$greenColor Installing desktop...$endColor"
+    chroot $roootfs apt install -y task-xfce-desktop
+    finished
+fi
 
 # Clean system
 echo -e "${yellowColor}Cleaning system$endColor"
@@ -210,6 +234,7 @@ rm -rf $rootfs/etc/machine-id
 rm -rf $rootfs/var/lib/dbus/machine-id
 finished
 
+<<<<<<< HEAD
 # Last changes in the system
 echo -e "${yellowColor}Last changes in system$endColor"
 chroot $rootfs apt update
@@ -218,6 +243,15 @@ finished
 # Create image
 #echo -e "\n$dot$greenColor Creating image...$endColor"
 #./image-creation.sh
+=======
+# Create image
+echo -e "\n$dot$greenColor Creating image...$endColor"
+echo -e "\nFor Build Image execute image-creation.sh"
+
+# Create out image directory
+#rm -rf $out_dir
+#mkdir $out_dir
+>>>>>>> test
 
 # Delete work directory
 if [ "$delete_work_dir" == "yes" ]
