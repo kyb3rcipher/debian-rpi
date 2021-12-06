@@ -23,6 +23,7 @@ To customize your images you must create a copy of the example.conf file with na
 - timezone - your local timezone view more [here](https://wiki.debian.org/TimeZoneChanges)
 - locale - your locales view more [here](https://wiki.debian.org/Locale)
 - host_name - system hostname
+- install_desktop - install desktop (default xfce)
 - architecture - system architecture the options are: arm64 and armhf
 - name_server - dns server, recomended: 8.8.8.8 (google) or 1.1.1.1 (cloudflare)
 - debian_release - system release you can use ubuntu or others releases script
