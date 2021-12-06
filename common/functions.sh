@@ -88,6 +88,12 @@ EOM
 	finished
 }
 
+# Install desktop (default xfce)
+if [ "$install_desktop" == "yes" ] then;
+	log Installing desktop... green
+	chroot $rootfs apt install -y task-xfce-desktop
+fi
+
 # Clean system
 function clean_system(){
 	echo -e "${yellowColor}Cleaning system$endColor"

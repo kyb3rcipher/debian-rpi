@@ -26,6 +26,9 @@ set_system
 # Install rpi firmware
 source common/rpi_firmware.sh
 
+# Install desktop
+install_desktop
+
 # Clean system
 clean_system
 
