@@ -87,7 +87,7 @@ function create_image(){
 BOOT_MB=${BOOT_MB:-"136"}
 FREE_SPACE=${FREE_SPACE:-"256"}
 
-source example.conf
+source common/base.conf
 if [ -f custom.conf ];
 then
 	source custom.conf;
