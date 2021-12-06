@@ -17,7 +17,7 @@ _EOF
 fi
 finished
 
-# Install raspberry pi repositorie
+# Install raspberry pi repository
 echo "deb http://archive.raspberrypi.org/debian bullseye main" >> /etc/apt/sources.list.d/raspberry.list
 chroot $rootfs apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 7FA3303E
 chroot $rootfs apt update
