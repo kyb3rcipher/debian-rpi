@@ -90,7 +90,7 @@ EOM
 
 # Install desktop (default xfce)
 if [ "$install_desktop" == "yes" ] then;
-	log Installing desktop... green
+	text "Installing desktop..." green
 	chroot $rootfs apt install -y task-xfce-desktop
 fi
 

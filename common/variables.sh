@@ -35,7 +35,7 @@ function text(){
 		*) text_color="$endColor" ;;
 	esac
 
-	echo -e "${redColor}[${yellowColor}*${redColor}] ${text_color}${1} ${endColor}"
+	echo -e "${redColor}[${yellowColor}*${redColor}] ${text_color}${1}${endColor}"
 }
 
 # Functions
