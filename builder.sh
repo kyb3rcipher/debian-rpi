@@ -256,6 +256,9 @@ fi
 #mv $image_name $out_dir
 sleep 2
 
+rm -rf $out_dir
+mkdir $out_dir
+mv $image_name $out_dir
 echo -e "\n${purpleColor}[${endColor}${yellowColor}*${endColor}${purpleColor}]${endColor} ${greenColor}The image was created successfully, you can find it in: ${cyanColor}${out_dir}/${image_name}${endColor}"
 }
 
