@@ -2,12 +2,12 @@
 # First common script
 
 # Source files
-source common/variables.conf
 source common/base.conf
 if [ -f custom.conf ];
 then
 	source custom.conf;
 fi
+source common/variables.sh
 
 # Check requirements for builder
 tmp_variable="jedi ghost"
