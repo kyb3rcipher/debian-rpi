@@ -184,15 +184,11 @@ echo -e "\n$dot$greenColor Installing kernel...$endColor"
 # Install kernel
 chroot $rootfs apt install -y raspberrypi-kernel raspberrypi-bootloader
 # Add boot config
-<<<<<<< HEAD
-cp -r boot/* $rootfs/boot
-=======
-echo "net.ifnames=0 dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootwait" >> $rootfs/boot/cmdline.txt
+echo "net.ifnames=0 console=tty1 root=/dev/mmcblk0p2 rw rootwait" >> $rootfs/boot/cmdline.txt
 if [ "$architecure" = "arm64" ]; then
     echo "arm_64bit=1" >> $rootfs/boot/config.txt
 fi
 echo "hdmi_force_hotplug=1" >> $rootfs/boot/config.txt
->>>>>>> test
 finished
 
 # Remove raspberry pi repo
@@ -234,16 +230,6 @@ rm -rf $rootfs/etc/machine-id
 rm -rf $rootfs/var/lib/dbus/machine-id
 finished
 
-<<<<<<< HEAD
-# Last changes in the system
-echo -e "${yellowColor}Last changes in system$endColor"
-chroot $rootfs apt update
-finished
-
-# Create image
-#echo -e "\n$dot$greenColor Creating image...$endColor"
-#./image-creation.sh
-=======
 # Create image
 echo -e "\n$dot$greenColor Creating image...$endColor"
 echo -e "\nFor Build Image execute image-creation.sh"
@@ -251,7 +237,6 @@ echo -e "\nFor Build Image execute image-creation.sh"
 # Create out image directory
 #rm -rf $out_dir
 #mkdir $out_dir
->>>>>>> test
 
 # Delete work directory
 if [ "$delete_work_dir" == "yes" ]
