@@ -3,6 +3,7 @@
 #--------------------------------------
 # Debian raspberry pi builder
 # LICENSE: MIT
+# VERSION: BETA
 # By: Kyb3r Kryze <kyb3rkryze.com>
 #---------------------------------------
 
