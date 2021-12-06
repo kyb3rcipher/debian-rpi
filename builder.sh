@@ -3,7 +3,7 @@
 #--------------------------------------
 # Debian raspberry pi builder
 # LICENSE: MIT
-# By: Kyb3r Vizsla <kyb3rvizsla.com>
+# By: Kyb3r Kryze <kyb3rkryze.com>
 #---------------------------------------
 
 source example.conf
