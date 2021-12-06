@@ -12,11 +12,11 @@ Install dependeces with:
 ## Use
 Execute builder with:
 ```bash
-./builder.sh
+./rpi.sh
 ```
 
 ## Personalizate
-To customize your images you must create a copy of the example.conf file with name: **custom.conf**, and there modify the variables to your needs, then an explanation of each variable:
+To customize your images you must create a copy of the example.conf file with name: **base.conf** in common folder, and there modify the variables to your needs, then an explanation of each variable:
 
 - root_password - root user password
 - custom_packages - add custom packages to system
@@ -43,5 +43,3 @@ Although it is optional. To test your image you must verify that the partitions 
 
 ### Notes
 Rembember execute all with **root permisos** (you can use sudo).
-
-By: [Kyb2r](https://kyb3rvizsla.com)
