@@ -4,7 +4,7 @@
 # Debian raspberry pi builder
 # LICENSE: MIT
 # VERSION: BETA
-# By: Kyb3r Kryze <kyb3rkryze.com>
+# By: Kyb3r Kryze <kyb3rkryze.com> and Serverket <serverket.vercel.app>
 #---------------------------------------
 
 source example.conf
