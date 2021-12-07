@@ -18,7 +18,7 @@ source common/functions.sh
 # --- Builder ---
 
 # Common script
-source common/common.sh
+. common/common.sh
 
 # Set system
 set_system

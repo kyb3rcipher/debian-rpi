@@ -89,12 +89,15 @@ EOM
 }
 
 # Install desktop (default xfce)
-if [ "$install_desktop" == "yes" ] then;
+function install_desktop(){
+if [ "$install_desktop" == "yes" ] 
+then
 	text "Installing desktop..." green
 	chroot $rootfs apt install -y task-xfce-desktop
 	# For mate
 	#chroot $rootfs apt install -y task-mate-desktop
 fi
+}
 
 # Clean system
 function clean_system(){
