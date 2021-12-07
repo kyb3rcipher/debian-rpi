@@ -10,7 +10,6 @@ echo -e "${roseColor} __   ___  __                 ${redColor} __   __       ${y
 echo -e "${roseColor}|  \ |__  |__) |  /\  |\ |    ${redColor}|__) |__) |    ${yellowColor}|__) |  | | |    |  \ |__  |__) ${endColor}"
 echo -e "${roseColor}|__/ |___ |__) | /~~\ | \|    ${redColor}|  \ |    |    ${yellowColor}|__) \__/ | |___ |__/ |___ |  \ ${endColor}"
 
-# Banner config
 echo -e "\nThe configuration is:"
 echo -e " ${purpleColor}Hostname: ${cyanColor}$host_name"
 echo -e " ${purpleColor}Architecture: ${cyanColor}$architecture"
