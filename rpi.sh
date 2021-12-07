@@ -20,6 +20,9 @@ source common/functions.sh
 # Common script
 . common/common.sh
 
+# Install packages
+install_packages
+
 # Set system
 set_system
 

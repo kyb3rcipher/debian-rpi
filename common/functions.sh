@@ -33,6 +33,11 @@ fi
 unset tmp_variable
 }
 
+function install_packages(){
+	apt update
+	apt install -y $packages
+}
+
 function set_system(){
 	# Setting...
 	echo -e "\n$dot$greenColor Starting settings...$endColor"
