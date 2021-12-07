@@ -44,7 +44,6 @@ then
 else
 	cp /usr/bin/qemu-arm-static $rootfs/usr/bin
 fi
-finished
 chroot $rootfs /debootstrap/debootstrap --second-stage
 finished
 
