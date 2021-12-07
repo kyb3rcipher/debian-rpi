@@ -27,7 +27,7 @@ install_packages
 set_system
 
 # Install rpi firmware
-source common/rpi_firmware.sh
+#source common/rpi_firmware.sh
 
 # Install desktop
 install_desktop
@@ -36,4 +36,4 @@ install_desktop
 clean_system
 
 # Create image
-create_image
+#create_image
