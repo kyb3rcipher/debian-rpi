@@ -35,7 +35,6 @@ mkdir $work_dir
 echo -e "\n$dot$greenColor Creating rootfs system...$endColor"
 debootstrap --foreign --arch="$architecture" bullseye $rootfs
 echo "$(date +"DAY: %d MONTH: %b HOUR: %I MINUTE: %M SECOND: %S")" > $work_dir/build-date.txt
-finished
 # Second stage
 # Install QEMU binary (for chroot)
 if [ "$architecture" == "arm64" ]
