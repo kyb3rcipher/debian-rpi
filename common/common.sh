@@ -37,7 +37,7 @@ debootstrap --foreign --arch="$architecture" bullseye $rootfs
 echo "$(date +"DAY: %d MONTH: %b HOUR: %I MINUTE: %M SECOND: %S")" > $work_dir/build-date.txt
 finished
 # Second stage
-# Installi QEMU binary (for chroot)
+# Install QEMU binary (for chroot)
 if [ "$architecture" == "arm64" ]
 then
 	cp /usr/bin/qemu-aarch64-static $rootfs/usr/bin
@@ -47,7 +47,6 @@ fi
 finished
 chroot $rootfs /debootstrap/debootstrap --second-stage
 finished
-
 
 echo -e "\n${yellowColor}Updating repositories...$endColor"
 chroot $rootfs apt update
