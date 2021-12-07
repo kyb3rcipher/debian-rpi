@@ -6,11 +6,12 @@ check_requirements
 
 # Banner
 clear
-echo -e "${roseColor} __   ___  __                 ${redColor} __   __       ${yellowColor} __               __   ___  __  ${endColor}"
-echo -e "${roseColor}|  \ |__  |__) |  /\  |\ |    ${redColor}|__) |__) |    ${yellowColor}|__) |  | | |    |  \ |__  |__) ${endColor}"
-echo -e "${roseColor}|__/ |___ |__) | /~~\ | \|    ${redColor}|  \ |    |    ${yellowColor}|__) \__/ | |___ |__/ |___ |  \ ${endColor}"
+echo -e "${greenColor} __        __   __   __  ___     ${redColor}     __           ${yellowColor} __               __   ___  __  ${endColor}"
+echo -e "${greenColor}|__)  /\  |__) |__) /  \  |      ${redColor}/\  |__)  |\/|    ${yellowColor}|__) |  | | |    |  \ |__  |__) ${endColor}"
+echo -e "${greenColor}|    /~~\ |  \ |  \ \__/  |     ${redColor}/~~\ |  \  |  |    ${yellowColor}|__) \__/ | |___ |__/ |___ |  \ ${endColor}"
 
 echo -e "\nThe configuration is:"
+echo -e " ${purpleColor}Device: ${roseColor}Raspberry Pi 3/4/400"
 echo -e " ${purpleColor}Hostname: ${cyanColor}$host_name"
 echo -e " ${purpleColor}Architecture: ${cyanColor}$architecture"
 echo -e " ${purpleColor}Out directory: ${cyanColor}$out_dir"
