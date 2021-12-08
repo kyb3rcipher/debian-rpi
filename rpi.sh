@@ -240,14 +240,14 @@ echo "hdmi_force_hotplug=1" >> $rootfs/boot/config.txt
 finished
 
 # Remove raspberry pi repo
-rm $rootfs/etc/apt/sources.list.d/rapsberry.list
+rm $rootfs/etc/apt/sources.list.d/raspberry.list
 chroot $rootfs apt update
 
 
 # Install desktop
 if [ "$install_desktop" == "yes" ] 
 then
-	text "Installing desktop..." green
+    text "Installing desktop..." green
 	chroot $rootfs apt install -y task-xfce-desktop
 	# For mate
 	#chroot $rootfs apt install -y task-mate-desktop
@@ -325,5 +325,9 @@ e2fsck -y -f "$ROOT_LOOP"
 # Eliminar dispositivos loop
 blockdev --flushbufs "${LOOPDEVICE}"
 losetup -d "${LOOPDEVICE}"
+
+# TMP
+mkdir $out_dir
+mv $image_name $out_dir
 }
-#create_image
+create_image
