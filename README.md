@@ -1,4 +1,4 @@
-# Parro Raspberry Pi builder
+# Parrot OS Raspberry Pi builder
 
 ## Preparation
 The script works on Debian and derivatives like Parrot or Ubuntu. Therefore you will need one of these.
@@ -12,7 +12,7 @@ Install dependeces with:
 ## Use
 Execute builder with:
 ```bash
-./builder.sh
+./rpi.sh
 ```
 
 ## Personalizate
