@@ -1,6 +1,15 @@
 #!/bin/bash
 # First common script
 
+# Source Files
+source common/base.conf
+if [ -f custom.conf ];
+then
+	source custom.conf;
+fi
+source common/variables.sh
+source common/functions.sh
+
 # Check system requiremenrs
 check_requirements
 

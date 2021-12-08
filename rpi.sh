@@ -6,19 +6,8 @@
 # By: Kyb3r Kryze <kyb3rkryze.com>
 #-----------------------------------
 
-# Source Files
-source common/base.conf
-if [ -f custom.conf ];
-then
-	source custom.conf;
-fi
-source common/variables.sh
-source common/functions.sh
-
-# --- Builder ---
-
-# Common script
-. common/common.sh
+# Common script (build base system etc)
+source common/common.sh
 
 # Install packages
 install_packages
