@@ -54,7 +54,7 @@ function ctrl_c() {
 }
 
 # Source config files
-source common/base.conf
+source base.conf
 if [ -f custom.conf ];
 then
 	source custom.conf;
