@@ -85,8 +85,14 @@ fi
 if [ -f .parrot-arm-builder-dependeces ]; then
 	tmp_variable="yes"
 else
-	echo -e "${yellowColor}The dependencies needed for the constructor are missing I can install them by running: ${greenColor}./requirements.sh${endColor}"
-	exit 1
+
+	echo -e "${yellowColor}It seems that you do not have the necessary dependencies, so we will install them...${endColor}"
+	apt update
+
+	builder_image_packages="debootstrap qemu-user-static wget debian-archive-keyring"
+	image_creation_packages="rsync dosfstools parted udev fdisk"
+	builder_packages="$builder_image_packages $image_creation_packages"
+	apt install -y $builder_packages && touch .parrot-arm-builder-dependeces
 fi
 
 
