@@ -10,7 +10,7 @@ Execute builder with:
 ```
 
 ## Personalizate
-To customize the image, make a copy of the base.conf file with the name **custom.conf** and edit the variables, followed by an explanation of each one of them.
+To customize the image, make a copy of the base.conf file with the name **custom.conf** and edit the variables, followed by an explanation of each one of them:
 
 - root_password - root user password
 - custom_packages - add custom packages to system
