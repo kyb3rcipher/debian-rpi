@@ -1,6 +1,10 @@
 #!/bin/bash
 
-source common/variables.sh
+# Colors
+endColor="\e[0m\e[0m"
+redColor="\e[0;31m\e[1m"
+yellowColor="\e[0;33m\e[1m"
+roseColor="\e[38;5;200m\e[1m"
 
 if [ `whoami` == "root" ]; then
 
