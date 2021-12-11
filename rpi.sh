@@ -327,7 +327,7 @@ blockdev --flushbufs "${LOOPDEVICE}"
 losetup -d "${LOOPDEVICE}"
 
 # TMP
-mkdir $out_dir
-mv $image_name $out_dir
+#mkdir $out_dir
+#mv $image_name $out_dir
 }
 create_image
