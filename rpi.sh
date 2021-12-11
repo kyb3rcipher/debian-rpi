@@ -248,7 +248,7 @@ chroot $rootfs apt update
 if [ "$install_desktop" == "yes" ] 
 then
     text "Installing desktop..." green
-	chroot $rootfs apt install -y task-xfce-desktop
+	chroot $rootfs apt install -y xfce4
 	# For mate
 	#chroot $rootfs apt install -y task-mate-desktop
 fi
