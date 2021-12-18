@@ -75,6 +75,7 @@ fi
 chroot $rootfs /debootstrap/debootstrap --second-stage
 
 # Preparation
+chroot $rootfs apt install gnupg wget neovim -y
 # Configure apt
 rm $rootfs/etc/apt/sources.list
 cat >$rootfs/etc/apt/sources.list <<EOM
@@ -86,7 +87,7 @@ cat >$rootfs/etc/apt/sources.list <<EOM
 # edit them, take a look into
 # /etc/apt/sources.list.d/parrot.list
 EOM
-echo "deb http://deb/debian.org/debian bullseye main" > $rootfs/etc/apt/sources.list.d/debian.list
+echo "deb http://deb.debian.org/debian bullseye main" > $rootfs/etc/apt/sources.list.d/debian.list
 echo "#deb https://deb.parrot.sh/parrot lts main contrib non-free" > $rootfs/etc/apt/sources.list.d/parrot.list
 chroot $rootfs wget -qO - https://deb.parrotsec.org/parrot/misc/parrotsec.gpg | apt-key add -
 chroot $rootfs apt update
