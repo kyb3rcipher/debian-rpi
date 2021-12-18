@@ -87,7 +87,7 @@ cat >$rootfs/etc/apt/sources.list <<EOM
 # /etc/apt/sources.list.d/parrot.list
 EOM
 echo "deb http://deb/debian.org/debian bullseye main" > $rootfs/etc/apt/sources.list.d/debian.list
-echo "#deb https://deb.parrot.sh/parrot lts main contrib non-free" > $rootfs/etc/apt/sources.list/parrot.list
+echo "#deb https://deb.parrot.sh/parrot lts main contrib non-free" > $rootfs/etc/apt/sources.list.d/parrot.list
 chroot $rootfs wget -qO - https://deb.parrotsec.org/parrot/misc/parrotsec.gpg | apt-key add -
 chroot $rootfs apt update
 
